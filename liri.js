@@ -67,9 +67,7 @@ function spotifyThis(songName){
 
 function movieThis(movieName){
         var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-
         axios.get(queryUrl).then(
-
             function(response) {
             console.log("Title: " + response.data.Title);
             console.log("Year: " + response.data.Year);
