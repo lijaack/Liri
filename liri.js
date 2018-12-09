@@ -12,6 +12,7 @@ var searchObject = nodeArgs[3]
 
 //change to switch statement later
 if (command === "concert-this"){
+    
     if(searchObject){
         concertThis(searchObject);
     } else { 
@@ -47,9 +48,9 @@ if (command === "concert-this"){
 
 function spotifyThis(songName){
         spotify
-            .search({ type: 'track', query: songName })
+            .search({ type: 'track', query: songName, limit: 1})
             .then(function(response) {
-                console.log(response);
+                console.log(response.tracks.items[0].artists[0].name);
             })
             .catch(function(err) {
                 console.log(err);
