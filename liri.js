@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+var fs = require("fs");
 var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
@@ -38,11 +39,7 @@ if (command === "concert-this"){
     }
     
 }else if (command === "do-what-it-says"){
-    if(searchObject){
-        doThis(searchObject);
-    } else{
-        doThis();   
-    }
+    doThis();
 }else{
     console.log("sorry, I couldn't understand your request")
 }
@@ -85,7 +82,7 @@ function movieThis(movieName){
             console.log("Title: " + response.data.Title);
             console.log("Year: " + response.data.Year);
             console.log("imdbRating: " + response.data.imdbRating);
-            // console.log("Release Year: " + response.data.   rotten tomato rating here);
+            console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
             console.log("Country: " + response.data.Country);
             console.log("Language: " + response.data.Language);
             console.log("Plot: " + response.data.Plot);
@@ -97,5 +94,20 @@ function movieThis(movieName){
 }
 
 function doThis(){
-    
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+        if (error) {
+          return console.log(error);
+        }
+      
+        console.log(data);
+      
+        var dataArr = data.split(",");
+      
+        console.log(dataArr[0]);
+        console.log(dataArr[1]);
+
+      
+    });
+      
 }
