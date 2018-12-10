@@ -10,7 +10,7 @@ var command = nodeArgs[2]
 var searchObject = "";
 
 for (var i = 3; i < nodeArgs.length; i++){
-    searchObject += nodeArgs[i];
+    searchObject = searchObject + " " + nodeArgs[i];
 }
 
 // check command and function
@@ -28,7 +28,7 @@ if (command === "concert-this"){
     if(searchObject){
         spotifyThis(searchObject);
     } else{
-        spotifyThis("Ace of Base");
+        spotifyThis("The Sign Ace of Base");
     }
 
 }else if (command === "movie-this"){
@@ -52,7 +52,10 @@ function spotifyThis(songName){
         spotify
             .search({ type: 'track', query: songName, limit: 1})
             .then(function(response) {
-                console.log(response.tracks.items[0].artists[0].name);
+                console.log("Artist Name: " + response.tracks.items[0].artists[0].name);
+                console.log("Song Name: " + response.tracks.items[0].name);
+                console.log("Spotify Link: " + response.tracks.items[0].external_urls.spotify);
+                console.log("Album Name: " + response.tracks.items[0].album.name);
             })
             .catch(function(err) {
                 console.log(err);
@@ -67,7 +70,6 @@ function concertThis(artist){
             console.log("Venue: " + response.data[0].venue.name);
             console.log("Location: " + response.data[0].venue.city);
             console.log("Date: " + response.data[0].datetime);
-
         }
     );
 }
@@ -103,10 +105,9 @@ function doThis(){
         console.log(data);
       
         var dataArr = data.split(",");
-      
+    
         console.log(dataArr[0]);
         console.log(dataArr[1]);
-
       
     });
       
