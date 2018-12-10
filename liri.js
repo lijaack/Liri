@@ -13,7 +13,7 @@ for (var i = 3; i < nodeArgs.length; i++){
     searchObject = searchObject + " " + nodeArgs[i];
 }
 
-// check command and function
+// check command and do function
 function checkCommand(command, searchObject){
     switch(command){
         case "concert-this":    if(searchObject){
@@ -72,6 +72,7 @@ function concertThis(artist){
         function(response) {
             console.log("==================Concert Info==================");
             console.log("");
+            console.log("Concert line up:" + response.data[0].lineup);
             console.log("Venue: " + response.data[0].venue.name);
             console.log("Location: " + response.data[0].venue.city);
             console.log("Date: " + response.data[0].datetime);
