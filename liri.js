@@ -14,36 +14,36 @@ for (var i = 3; i < nodeArgs.length; i++){
 }
 
 // check command and function
+function checkCommand(command, searchObject){
+    switch(command){
+        case "concert-this":    if(searchObject){
+                                        concertThis(searchObject);
+                                    } else { 
+                                        concertThis("ariana grande");
+                                    }
+                                break;
 
+        case "spotify-this-song":  if(searchObject){
+                                        spotifyThis(searchObject);
+                                    } else{
+                                        spotifyThis("The Sign Ace of Base");
+                                    }
+                                break;
 
-//change to switch statement later
-if (command === "concert-this"){
-    
-    if(searchObject){
-        concertThis(searchObject);
-    } else { 
-        concertThis("ariana grande");
-    }
-} else if (command === "spotify-this-song"){
-    if(searchObject){
-        spotifyThis(searchObject);
-    } else{
-        spotifyThis("The Sign Ace of Base");
-    }
+        case "movie-this":      if(searchObject){
+                                        movieThis(searchObject);
+                                    } else{
+                                        movieThis("Mr. Nobody");    
+                                    }
+                                break;
 
-}else if (command === "movie-this"){
-    if(searchObject){
-        movieThis(searchObject);
-    } else{
-        movieThis("Mr. Nobody");    
+        case "do-what-it-says": doThis();
+                                break;
+
+        default: console.log("sorry, I couldn't understand your request")
+                                break;                
     }
-    
-}else if (command === "do-what-it-says"){
-    doThis();
-}else{
-    console.log("sorry, I couldn't understand your request")
 }
-
 
 
 //spotify
@@ -52,10 +52,13 @@ function spotifyThis(songName){
         spotify
             .search({ type: 'track', query: songName, limit: 1})
             .then(function(response) {
+                console.log("==================Song Info==================");
+                console.log("");
                 console.log("Artist Name: " + response.tracks.items[0].artists[0].name);
                 console.log("Song Name: " + response.tracks.items[0].name);
                 console.log("Spotify Link: " + response.tracks.items[0].external_urls.spotify);
                 console.log("Album Name: " + response.tracks.items[0].album.name);
+                console.log("")
             })
             .catch(function(err) {
                 console.log(err);
@@ -67,9 +70,12 @@ function concertThis(artist){
     var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
     axios.get(queryUrl).then(
         function(response) {
+            console.log("==================Concert Info==================");
+            console.log("");
             console.log("Venue: " + response.data[0].venue.name);
             console.log("Location: " + response.data[0].venue.city);
             console.log("Date: " + response.data[0].datetime);
+            console.log("");
         }
     );
 }
@@ -81,6 +87,8 @@ function movieThis(movieName){
         var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
         axios.get(queryUrl).then(
             function(response) {
+            console.log("==================Movie Info==================");
+            console.log("");
             console.log("Title: " + response.data.Title);
             console.log("Year: " + response.data.Year);
             console.log("imdbRating: " + response.data.imdbRating);
@@ -89,26 +97,37 @@ function movieThis(movieName){
             console.log("Language: " + response.data.Language);
             console.log("Plot: " + response.data.Plot);
             console.log("Actors: " + response.data.Actors);
+            console.log("");
 
             }
         );
   
 }
 
+// do random text
 function doThis(){
     fs.readFile("random.txt", "utf8", function(error, data) {
-
         if (error) {
           return console.log(error);
         }
-      
-        console.log(data);
-      
+        var dataCommand = [];
+        var dataObject = [];
         var dataArr = data.split(",");
-    
-        console.log(dataArr[0]);
-        console.log(dataArr[1]);
-      
+
+
+        for (var i = 0; i < dataArr.length; i++){
+            if(i % 2 === 0){
+                dataCommand.push(dataArr[i].trim());
+            } else { 
+                dataObject.push(dataArr[i].trim());
+            }   
+        }
+        for (var j = 0; j < dataCommand.length; j++){
+            checkCommand(dataCommand[j], dataObject[j])
+        }
+
     });
-      
+ 
 }
+
+checkCommand(command, searchObject);
