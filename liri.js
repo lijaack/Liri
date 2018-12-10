@@ -6,7 +6,12 @@ var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
 var nodeArgs = process.argv
 var command = nodeArgs[2]
-var searchObject = nodeArgs[3]
+var searchObject = "";
+
+for (var i = 3; i < nodeArgs.length; i++){
+    searchObject += nodeArgs[i];
+}
+
 // check command and function
 
 
@@ -16,7 +21,7 @@ if (command === "concert-this"){
     if(searchObject){
         concertThis(searchObject);
     } else { 
-        concertThis();
+        concertThis("ariana grande");
     }
 } else if (command === "spotify-this-song"){
     if(searchObject){
@@ -58,9 +63,17 @@ function spotifyThis(songName){
 }
 
 //concert
+function concertThis(artist){
+    var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+    axios.get(queryUrl).then(
+        function(response) {
+            console.log("Venue: " + response.data[0].venue.name);
+            console.log("Location: " + response.data[0].venue.city);
+            console.log("Date: " + response.data[0].datetime);
 
-
-
+        }
+    );
+}
 
 
 //movies
