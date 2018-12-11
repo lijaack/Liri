@@ -17,3 +17,6 @@ In order to call on liri, run the file "liri.js" through node followed by one of
 
 Type the object that you would like to search up following the command and press enter.  
 Liri will then return to you data about the object you searched up!  
+
+
+<img src="Liri-ss.png">
