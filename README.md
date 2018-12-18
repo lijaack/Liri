@@ -3,7 +3,7 @@ Liri is a little helper accessed through the terminal. She will return you data 
 
 
 ## Getting Started 
-you still need to install axios, dotenv, moment, and node-spotify-api in order to use Liri. 
+you  need to install axios, dotenv, moment, and node-spotify-api in order to use Liri. 
 
 
 ## How to use 
@@ -20,3 +20,8 @@ Liri will then return to you data about the object you searched up!
 
 
 <img src="Liri-ss.png">
+
+## Built With
+
+* node.js
+* Javascript
